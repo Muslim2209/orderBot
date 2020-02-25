@@ -5,7 +5,7 @@ DJANGO_TELEGRAMBOT = {
     # NB: if use polling you must provide to run
     # a management command that starts a worker
 
-    'WEBHOOK_SITE': '0e72a21d.ngrok.io',
+    'WEBHOOK_SITE': 'your host',
     # 'WEBHOOK_PREFIX': '/prefix',  # (Optional[str]) # If this value is specified,
     # a prefix is added to webhook url
 
@@ -19,7 +19,7 @@ DJANGO_TELEGRAMBOT = {
 
     'BOTS': [
         {
-            'TOKEN': '982467890:AAFnq2wglxN45JH_OPHB3aN3v4C52atzcrM',  # Your bot token.
+            'TOKEN': 'your TOKEN',  # Your bot token.
 
             # 'ALLOWED_UPDATES':(Optional[list[str]]), # List the types of
             # updates you want your bot to receive. For example, specify
