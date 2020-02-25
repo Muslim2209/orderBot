@@ -1,0 +1,42 @@
+import logging
+
+from bot import constants, markups
+from bot.models import Command
+
+logger = logging.getLogger(__name__)
+
+
+def register(bot, user, update):
+    if update.message.contact:
+        user.phone_number = update.message.contact.phone_number
+        user.is_registered = True
+        user.save()
+        Command.objects.create(user=user,
+                               message_id=update.message.message_id,
+                               text=constants.register,
+                               to_menu=constants.home)
+        return bot.sendMessage(update.message.chat_id,
+                               text=constants.register_success,
+                               reply_markup=markups.home_markup)
+
+    if user.phone_number is None:
+        bot.sendMessage(update.message.chat_id,
+                        text=constants.ask_contact,
+                        reply_markup=markups.register_markup)
+        Command.objects.create(user=user,
+                               message_id=update.message.message_id,
+                               text=update.message.text,
+                               to_menu=constants.home)
+        return None
+
+
+def help_me(bot, update):
+    bot.sendMessage(update.message.chat_id, text='Call: 911')
+
+
+def sticker(bot, update):
+    bot.sendSticker(update.message.chat_id, sticker=update.message.sticker)
+
+
+def error(bot, update, errors):
+    logger.warning('Update "%s" caused error "%s"' % (update, errors))
